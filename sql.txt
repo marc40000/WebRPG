@@ -1,0 +1,709 @@
+-- phpMyAdmin SQL Dump
+-- version 2.6.0-pl2
+-- http://www.phpmyadmin.net
+-- 
+-- Host: localhost
+-- Generation Time: May 28, 2006 at 06:38 PM
+-- Server version: 4.1.8
+-- PHP Version: 5.0.3
+-- 
+-- Database: `webrpg`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_characters`
+-- 
+
+CREATE TABLE `webrpg_characters` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(64) collate latin1_general_ci NOT NULL default '',
+  `regionid` int(11) NOT NULL default '0',
+  `x` int(11) NOT NULL default '0',
+  `y` int(11) NOT NULL default '0',
+  `spawnregionid` int(11) NOT NULL default '0',
+  `spawnx` int(11) NOT NULL default '0',
+  `spawny` int(11) NOT NULL default '0',
+  `hp` int(11) NOT NULL default '0',
+  `hpmax` int(11) NOT NULL default '0',
+  `mana` int(11) NOT NULL default '0',
+  `ap` int(11) NOT NULL default '0',
+  `manamax` int(11) NOT NULL default '0',
+  `exp` int(11) NOT NULL default '0',
+  `level` int(11) NOT NULL default '0',
+  `img` varchar(128) collate latin1_general_ci NOT NULL default '',
+  `state` int(11) NOT NULL default '0',
+  `userid` int(11) NOT NULL default '0',
+  `gold` int(11) NOT NULL default '0',
+  `chpmax` int(11) NOT NULL default '0',
+  `cmanamax` int(11) NOT NULL default '0',
+  `chpregen` int(11) NOT NULL default '0',
+  `cmanaregen` int(11) NOT NULL default '0',
+  `cap` int(11) NOT NULL default '0',
+  `crc` int(11) NOT NULL default '0',
+  `timelastaction` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`),
+  KEY `regionid` (`regionid`),
+  KEY `x` (`x`),
+  KEY `y` (`y`),
+  KEY `state` (`state`),
+  KEY `userid` (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=9 ;
+
+-- 
+-- Dumping data for table `webrpg_characters`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_chat`
+-- 
+
+CREATE TABLE `webrpg_chat` (
+  `id` int(11) NOT NULL auto_increment,
+  `characterid` int(11) NOT NULL default '0',
+  `charactername` varchar(64) collate latin1_general_ci NOT NULL default '',
+  `channel` int(11) NOT NULL default '0',
+  `msg` text collate latin1_general_ci NOT NULL,
+  `time` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`),
+  KEY `characterid` (`characterid`),
+  KEY `channel` (`channel`),
+  KEY `time` (`time`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=23 ;
+
+-- 
+-- Dumping data for table `webrpg_chat`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_inventory`
+-- 
+
+CREATE TABLE `webrpg_inventory` (
+  `id` int(11) NOT NULL auto_increment,
+  `itemtypeid` int(11) NOT NULL default '0',
+  `characterid` int(11) NOT NULL default '0',
+  `equipped` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `itemtypeid` (`itemtypeid`),
+  KEY `equipped` (`equipped`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=30 ;
+
+-- 
+-- Dumping data for table `webrpg_inventory`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_items`
+-- 
+
+CREATE TABLE `webrpg_items` (
+  `id` int(11) NOT NULL auto_increment,
+  `itemtypeid` int(11) NOT NULL default '0',
+  `regionid` int(11) NOT NULL default '0',
+  `x` int(11) NOT NULL default '0',
+  `y` int(11) NOT NULL default '0',
+  `timedropped` timestamp NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`),
+  KEY `itemtypeid` (`itemtypeid`),
+  KEY `regionid` (`regionid`),
+  KEY `px` (`x`),
+  KEY `py` (`y`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=46 ;
+
+-- 
+-- Dumping data for table `webrpg_items`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_itemtypes`
+-- 
+
+CREATE TABLE `webrpg_itemtypes` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(128) collate latin1_general_ci NOT NULL default '',
+  `img` varchar(64) collate latin1_general_ci NOT NULL default '',
+  `modhp` int(11) NOT NULL default '0',
+  `modmana` int(11) NOT NULL default '0',
+  `modhpregen` int(11) NOT NULL default '0',
+  `modmanaregen` int(11) NOT NULL default '0',
+  `modap` int(11) NOT NULL default '0',
+  `modrc` int(11) NOT NULL default '0',
+  `dropvalue` int(11) NOT NULL default '0',
+  `equipable` int(11) NOT NULL default '0',
+  `useable` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=222 ;
+
+-- 
+-- Dumping data for table `webrpg_itemtypes`
+-- 
+
+INSERT INTO `webrpg_itemtypes` VALUES (3, 'small dagger', '0003.gif', 0, 0, 0, 0, 5, 0, 100, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (4, 'knife', '0004.gif', 0, 0, 0, 0, 4, 0, 80, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (5, 'dagger', '0005.gif', 0, 0, 0, 0, 6, 0, 100, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (6, 'cutter', '0006.gif', 0, 0, 0, 0, 3, 0, 100, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (7, 'blue dagger', '0007.gif', 0, 0, 0, 0, 7, 0, 120, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (8, 'axe', '0008.gif', 0, 0, 0, 0, 10, 0, 150, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (9, 'double axe', '0009.gif', 0, 0, 0, 0, 13, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (10, 'pike', '0010.gif', 0, 0, 0, 0, 8, 0, 100, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (11, 'silver dagger', '0011.gif', 0, 0, 0, 0, 7, 0, 140, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (12, 'golden dagger', '0012.gif', 0, 0, 0, 0, 7, 0, 170, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (13, 'short dagger', '0013.gif', 0, 0, 0, 0, 5, 0, 190, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (14, 'silver dagger +1', '0014.gif', 0, 0, 0, 0, 8, 0, 190, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (15, 'bronce dagger', '0015.gif', 0, 0, 0, 0, 6, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (16, 'short sword +1', '0016.gif', 0, 0, 0, 0, 9, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (17, 'long sword', '0017.gif', 0, 0, 0, 0, 12, 0, 300, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (18, 'bastard sword', '0018.gif', 0, 0, 0, 0, 15, 0, 350, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (19, 'heroic sword', '0019.gif', 0, 0, 0, 0, 16, 0, 400, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (20, 'long sword +1', '0020.gif', 0, 0, 0, 0, 14, 0, 350, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (21, 'long dagger', '0021.gif', 0, 0, 0, 0, 9, 0, 300, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (22, 'sabre', '0022.gif', 0, 0, 0, 0, 13, 0, 300, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (23, 'large sword', '0023.gif', 0, 0, 0, 0, 15, 0, 350, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (24, 'large sabre', '0024.gif', 0, 0, 0, 0, 14, 0, 350, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (25, 'sabre +1', '0025.gif', 0, 0, 0, 0, 14, 0, 400, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (26, 'some sword', '0026.gif', 0, 0, 0, 0, 10, 0, 250, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (27, 'evil sabre', '0027.gif', 0, 0, -5, 0, 20, 0, 400, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (28, 'piece of wood +1', '0028.gif', 0, 0, 0, 0, 4, 0, 50, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (29, 'piece of wood', '0029.gif', 0, 0, 0, 0, 3, 0, 50, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (30, 'club', '0030.gif', 0, 0, 0, 0, 4, 0, 30, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (31, 'fly flap', '0031.gif', 0, 0, 0, 0, 2, 0, 400, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (32, 'mace', '0032.gif', 0, 0, 0, 0, 9, 0, 150, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (33, 'dark mace', '0033.gif', 0, 0, 0, 0, 11, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (34, 'morning star', '0034.gif', 0, 0, 0, 0, 13, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (35, 'boor', '0035.gif', 0, 0, 0, 0, 10, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (36, 'black hammer', '0036.gif', 0, 0, -1, 0, 12, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (37, 'hammer', '0037.gif', 0, 0, 0, 0, 12, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (38, 'long stick', '0038.gif', 0, 0, 0, 0, 5, 0, 100, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (39, 'spear', '0039.gif', 0, 0, 0, 0, 8, 0, 100, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (40, 'halberd', '0040.gif', 0, 0, 0, 0, 14, 0, 250, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (41, 'halbard +2', '0041.gif', 0, 0, 0, 0, 17, 0, 300, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (42, 'halbard +1', '0042.gif', 0, 0, 0, 0, 16, 0, 300, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (43, 'small halbard', '0043.gif', 0, 0, 0, 0, 13, 0, 300, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (44, 'killer axe', '0044.gif', 0, 0, 0, 0, 11, 0, 450, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (45, 'polearm', '0045.gif', 0, 0, 0, 0, 14, 0, 450, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (46, 'polearm +1', '0046.gif', 0, 0, 0, 0, 15, 0, 500, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (47, 'polearm +2', '0047.gif', 0, 0, 0, 0, 16, 0, 500, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (48, 'polearm +2.5', '0048.gif', 0, 0, 0, 0, 17, 0, 500, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (49, 'some weapon', '0049.gif', 0, 0, 0, 0, 7, 0, 250, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (50, 'some weapon +1', '0050.gif', 0, 0, 0, 0, 9, 0, 250, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (51, 'black spear', '0051.gif', 0, 0, -1, -1, 15, -1, 500, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (52, 'spear +1', '0052.gif', 0, 0, 0, 0, 14, 0, 500, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (53, 'silver spear', '0053.gif', 0, 0, 0, 0, 15, 0, 500, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (54, 'poison spear', '0054.gif', 0, 0, -5, 0, 25, 0, 550, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (55, 'thick spear', '0055.gif', 0, 0, 0, 0, 15, 0, 600, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (56, 'small spear', '0056.gif', 0, 0, 0, 0, 7, 0, 200, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (57, 'trident', '0057.gif', 0, 0, 0, 0, 12, 0, 300, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (58, 'lance', '0058.gif', 0, 0, 0, 0, 9, 0, 350, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (59, 'bow', '0059.gif', 0, 0, 0, 0, 8, 0, 350, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (60, 'short bow', '0060.gif', 0, 0, 0, 0, 7, 0, 300, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (61, 'long bow', '0061.gif', 0, 0, 0, 0, 11, 0, 400, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (62, 'blue bow', '0062.gif', 0, 0, 0, 2, 11, 0, 450, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (63, 'large bow', '0063.gif', 0, 0, 0, 0, 13, 0, 500, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (64, 'pistol', '0064.gif', 0, 0, 0, -1000, 20, 0, 400, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (65, 'black pistol', '0065.gif', 0, 0, -5, -1000, 25, 0, 450, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (66, 'ugly pistol', '0066.gif', 0, 0, 0, -1000, 26, 0, 500, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (67, 'rifle', '0067.gif', 0, 0, 0, -1000, 28, 0, 550, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (68, 'blue rifle', '0068.gif', 0, 0, 3, -1000, 28, 0, 570, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (69, 'sniper rifle', '0069.gif', 0, 0, 0, -1000, 30, -3, 600, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (70, 'shotgun', '0070.gif', 0, 0, 0, -1000, 29, 0, 650, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (71, 'tommy gun', '0071.gif', 0, 0, 0, -1000, 35, 0, 700, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (72, 'rocket launcher', '0072.gif', 0, 0, 0, -1000, 40, 0, 750, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (73, 'grenade launcher', '0073.gif', 0, 0, 0, -1000, 40, 0, 800, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (75, 'grenades', '0075.gif', 0, 0, 0, -1000, 25, 0, 600, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (76, 'crossbow', '0076.gif', 0, 0, 0, 0, 13, 0, 340, 7, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (77, 'hawaian shirt', '0077.gif', 0, 0, 0, 0, 0, 1, 50, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (78, 'white shirt', '0078.gif', 0, 0, 0, 0, 0, 1, 60, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (79, 'plate mail', '0079.gif', 0, 0, 0, 0, 0, 10, 250, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (80, 'heroic mail', '0080.gif', 0, 0, 0, 0, 0, 13, 350, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (81, 'golden plate mail', '0081.gif', 0, 0, 0, 0, 0, 14, 500, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (82, 'plated mail', '0082.gif', 0, 0, 0, 0, 0, 12, 550, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (83, 'chain mail', '0083.gif', 0, 0, 0, 0, 0, 8, 400, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (84, 'poisoned chain mail', '0084.gif', 0, 0, -5, 0, 0, 7, 450, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (85, 'color shield', '0085.gif', 0, 0, 0, 0, 0, 5, 350, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (86, 'chain mail XL', '0086.gif', 0, 0, 0, 0, 0, 8, 300, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (87, 'chain mail XL +1', '0087.gif', 0, 0, 2, 0, 0, 10, 350, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (88, 'bronzed mail', '0088.gif', 0, 0, 0, 0, 0, 10, 400, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (89, 'chain robe', '0089.gif', 0, 0, 0, 0, 0, 7, 250, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (90, 'leather armor', '0090.gif', 0, 0, 0, 0, 0, 8, 200, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (91, 'chain armor', '0091.gif', 0, 0, 0, 0, 0, 9, 250, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (92, 'chain armor +1', '0092.gif', 0, 0, 0, 0, 0, 11, 300, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (93, 'leather armor +1', '0093.gif', 0, 0, 0, 0, 0, 10, 350, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (94, 'jacket', '0094.gif', 0, 0, 0, 0, 0, 3, 50, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (95, 'red mantle', '0095.gif', 40, 0, 3, 0, 0, 5, 150, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (96, 'blue mantle', '0096.gif', 0, 40, 0, 3, 0, 5, 150, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (97, 'golden mantle', '0097.gif', 20, 20, 2, 2, 0, 5, 150, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (98, 'green mantle', '0098.gif', 100, 100, -1, -1, -3, 5, 200, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (99, 'spike armor', '0099.gif', 0, 0, 0, 3, 0, 10, 450, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (100, 'white armor', '0100.gif', 0, 0, 0, 0, 0, 13, 500, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (101, 'color armor', '0101.gif', 0, 0, 0, 0, 0, 10, 400, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (102, 'green shield', '0102.gif', 0, 0, 0, 0, 0, 11, 550, 6, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (103, 'blood armor', '0103.gif', 30, 0, 0, 0, 0, 13, 600, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (104, 'silver armor', '0104.gif', 0, 0, 0, 0, 0, 9, 100, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (105, 'bronce armor', '0105.gif', 0, 0, 0, 0, 0, 7, 120, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (106, 'black armor', '0106.gif', 0, 0, 0, 0, -10, 20, 250, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (107, 'blue armor', '0107.gif', 0, 30, 0, 3, 0, 10, 300, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (108, 'green armor', '0108.gif', 0, 0, 0, -3, -4, 150, 550, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (109, 'yellow armor', '0109.gif', 0, 0, 0, 0, 0, 5, 350, 2, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (110, 'bracelets', '0110.gif', 0, 0, 0, 0, 0, 3, 250, 3, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (111, 'silver bracelets', '0111.gif', 0, 0, 0, 0, 0, 5, 300, 3, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (112, 'cape', '0112.gif', 0, 0, 0, 0, 0, 3, 250, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (113, 'cape +1', '0113.gif', 0, 0, 0, 0, 0, 4, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (114, 'red cape', '0114.gif', 50, 0, 0, 0, 0, 5, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (115, 'green cape', '0115.gif', 0, 0, 0, 0, -1, 6, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (116, 'modern cape', '0116.gif', 0, 0, 0, 0, 0, 7, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (117, 'brown cape', '0117.gif', 0, 0, 0, 0, 0, 4, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (118, 'worn cape of drunk', '0118.gif', 0, 0, 0, 0, 0, 1, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (119, 'poisoned cape', '0119.gif', 0, 0, -5, 0, 0, -4, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (120, 'shiny cape', '0120.gif', 0, 0, 0, 0, 0, 4, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (121, 'pink cape', '0121.gif', 0, 0, 0, 0, 0, 3, 300, 9, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (122, 'feather hat', '0122.gif', 0, 0, 0, 0, 0, 4, 300, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (123, 'metal cap', '0123.gif', 0, 0, 0, 0, 0, 6, 250, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (124, 'small helmet', '0124.gif', 0, 0, 0, 0, 0, 7, 200, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (125, 'hat', '0125.gif', 0, 0, 0, 0, 0, 5, 270, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (126, 'wizard hat', '0126.gif', 0, 100, 0, 10, 0, 5, 700, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (127, 'pro helmet', '0127.gif', 0, 0, 0, 0, 0, 9, 800, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (128, 'helmet +1', '0128.gif', 0, 0, 0, 0, 0, 8, 900, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (129, 'heavy helmet', '0129.gif', 0, 0, 0, 0, 0, 9, 1000, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (130, 'full helmet', '0130.gif', 0, 0, 0, 0, 0, 11, 1000, 1, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (131, 'leather gloves', '0131.gif', 0, 0, 0, 0, 0, 1, 400, 13, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (132, 'leather gloves +1', '0132.gif', 0, 0, 0, 0, 0, 2, 500, 13, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (133, 'metal gloves', '0133.gif', 0, 0, 0, 0, 0, 3, 600, 13, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (134, 'enchanted gloves', '0134.gif', 0, 20, 0, 0, 0, 2, 500, 13, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (135, 'enchanted gloves +1', '0135.gif', 0, 40, 0, 0, 0, 3, 600, 13, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (136, 'wooden shield', '0136.gif', 0, 0, 0, 0, 0, 3, 550, 6, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (137, 'heroic shield', '0137.gif', 0, 0, 0, 0, 0, 6, 450, 6, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (138, 'large shield', '0138.gif', 0, 0, 0, 0, 0, 7, 400, 6, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (139, 'buckler', '0139.gif', 0, 0, 0, 0, 0, 4, 500, 6, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (140, 'metal shield', '0140.gif', 0, 0, 0, 0, 0, 6, 550, 6, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (141, 'shoes', '0141.gif', 5, 0, 0, 0, 0, 0, 150, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (142, 'shoes +1', '0142.gif', 15, 0, 0, 0, 0, 0, 200, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (143, 'large shoes', '0143.gif', 0, 0, 1, 1, 0, 0, 250, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (144, 'large shoes +1', '0144.gif', 0, 0, 2, 2, 0, 0, 300, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (145, 'poisioned shoes', '0145.gif', 0, 0, -2, 0, 0, 0, 350, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (146, 'sports shoes', '0146.gif', 40, 0, 0, 0, 0, 0, 400, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (147, 'yellow boots', '0147.gif', 0, 0, 0, 0, 0, 0, 450, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (148, 'spike boots', '0148.gif', 0, 0, 0, 0, 3, 0, 500, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (149, 'black shoes', '0149.gif', 0, 0, 0, 0, -2, 0, 550, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (150, 'white boots', '0150.gif', 0, 0, 0, 0, 1, 0, 560, 5, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (151, 'bronce ring', '0151.gif', 0, 0, 5, 0, 0, 0, 150, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (152, 'yellow stone ring', '0152.gif', 0, 0, 0, 0, 0, 0, 240, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (153, 'poison fire ring', '', 0, 0, -5, 0, 5, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (154, 'black ring', '', 0, 0, -2, 0, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (155, 'specular ring', '', 0, 0, 2, 0, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (156, 'golden ring', '', 0, 0, 3, 0, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (157, 'poison ring', '', 0, 0, -4, 0, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (158, 'camoflage ring', '', 0, 0, 0, 0, 0, 4, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (159, 'silver ring', '', 0, 0, 1, 0, 0, 1, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (160, 'crystal ring', '', 0, 25, 0, 1, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (161, 'gold ring', '', 0, 20, 0, 0, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (162, 'icy ring', '', -100, 100, 0, 0, 0, 0, 700, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (163, 'dark ring', '', 0, -50, 0, 0, 10, 0, 700, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (164, 'bronce ring', '', 0, 0, 0, 0, 2, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (165, 'metal ring', '', 0, 0, 0, 0, 1, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (166, 'screw nut', '', 0, 0, 0, 0, 0, -1, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (167, 'blood ring', '', 50, 0, 2, 0, 0, 0, 500, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (168, 'dark blood ring', '', 40, 0, 3, 0, 0, 0, 550, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (169, 'metal ring +1', '', 0, 0, 0, 0, 2, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (170, 'deformed ring', '', 0, 0, 0, 0, 0, 1, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (171, 'pearl ring', '', 0, 50, 0, 2, 0, 0, 700, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (172, 'star ring', '', 0, 40, 0, 3, 0, 0, 700, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (173, 'gold ring +1', '', 0, 40, 0, 0, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (174, 'metal ring +2', '', 0, 0, 0, 0, 3, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (175, 'deformed poison ring', '', 0, 0, -1, 0, 0, 2, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (176, 'poison ring +1', '', 0, 0, -1, 0, 0, 5, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (177, 'gold pearl ring', '', 0, 35, 2, 0, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (178, 'fire gold ring', '', 0, 0, 0, 0, 5, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (179, 'silver ring +1', '', 0, 0, 0, 0, 2, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (180, 'bloodstone ring', '', 40, 30, 1, -3, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (181, 'some ring', '', 0, 0, 0, 0, 0, 1, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (182, 'poisonstone ring', '', 0, 0, -2, 0, 0, 0, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (183, 'shiny ring', '', 0, 0, 0, 0, 0, 2, 300, 8, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (184, 'necklace', '', 0, 0, 1, 0, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (185, 'necklace +1', '', 0, 0, 1, 1, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (186, 'necklace +2', '', 0, 0, 2, 1, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (187, 'necklace +3', '', 0, 0, 2, 2, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (188, 'necklace +4', '', 0, 0, 3, 2, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (189, 'necklace +5', '', 0, 0, 3, 3, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (190, 'necklace +6', '', 0, 0, 4, 3, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (191, 'necklace +7', '', 0, 0, 4, 4, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (192, 'necklace +8', '', 0, 0, 5, 4, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (193, 'necklace +9', '', 0, 0, 5, 5, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (194, 'necklace +10', '', 0, 0, 6, 5, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (195, 'moon necklace', '', 0, 0, 6, 6, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (196, 'color necklace', '', 50, 0, 7, 0, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (197, 'color necklace +1', '', 60, 0, 8, 0, 0, 0, 300, 10, 0);
+INSERT INTO `webrpg_itemtypes` VALUES (198, 'mana potion', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (199, 'health potion', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (200, 'meat', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (201, 'meat with bone', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (202, 'egg', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (203, 'water and bread', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (204, 'large water and bread', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (205, 'water and bread xl', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (206, 'water and bread xxl', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (207, 'chedda', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (208, 'bread', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (209, 'cookie', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (210, 'camonber', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (211, 'cracker', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (212, 'chocolater bar', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (213, 'sandwich', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (214, 'green fruit', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (215, 'rainbow fruit', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (216, 'mushroom', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (217, 'orange', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (218, 'banana', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (219, 'apple', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (220, 'pear', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+INSERT INTO `webrpg_itemtypes` VALUES (221, 'carott', '', 0, 0, 0, 0, 0, 0, 100, 0, 1);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_monsters`
+-- 
+
+CREATE TABLE `webrpg_monsters` (
+  `id` int(11) NOT NULL auto_increment,
+  `monstertypeid` int(11) NOT NULL default '0',
+  `regionid` int(11) NOT NULL default '0',
+  `x` int(11) NOT NULL default '0',
+  `y` int(11) NOT NULL default '0',
+  `hp` int(11) NOT NULL default '0',
+  `spawnx` int(11) NOT NULL default '0',
+  `spawny` int(11) NOT NULL default '0',
+  `timelastdeath` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `state` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `monstertypeid` (`monstertypeid`),
+  KEY `regionid` (`regionid`),
+  KEY `px` (`x`),
+  KEY `py` (`y`),
+  KEY `timelastdeath` (`timelastdeath`),
+  KEY `state` (`state`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=70 ;
+
+-- 
+-- Dumping data for table `webrpg_monsters`
+-- 
+
+INSERT INTO `webrpg_monsters` VALUES (1, 1, 1, 31, 15, 10, 31, 16, 0x323030362d30352d32302030313a34323a3234, 1);
+INSERT INTO `webrpg_monsters` VALUES (2, 1, 1, 30, 18, 10, 16, 16, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (3, 1, 1, 18, 25, 10, 18, 15, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (4, 1, 1, 23, 10, 10, 23, 12, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (5, 1, 1, 21, 9, 10, 24, 12, 0x323030362d30352d32302030323a32323a3534, 1);
+INSERT INTO `webrpg_monsters` VALUES (6, 1, 1, 21, 21, 10, 11, 15, 0x323030362d30352d32302030323a32333a3034, 1);
+INSERT INTO `webrpg_monsters` VALUES (7, 1, 1, 15, 15, 10, 12, 15, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (8, 1, 1, 17, 20, 10, 10, 15, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (9, 2, 1, 5, 6, 5, 9, 3, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (10, 1, 1, 8, 2, 10, 13, 3, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (11, 1, 1, 9, 8, 10, 9, 7, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (12, 1, 1, 14, 8, 10, 13, 7, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (13, 3, 1, 6, 4, 20, 5, 5, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (14, 3, 1, 29, 9, 20, 33, 22, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (15, 3, 1, 31, 21, 20, 34, 22, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (16, 1, 1, 16, 14, 7, 12, 22, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (17, 1, 1, 18, 21, 10, 27, 18, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (18, 1, 1, 33, 22, 10, 30, 14, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (19, 1, 1, 38, 6, 10, 31, 15, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (20, 1, 1, 31, 22, 10, 32, 16, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (21, 3, 1, 25, 5, 10, 24, 7, 0x323030362d30352d32302030323a32343a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (22, 20, 5, 8, 12, 250, 14, 8, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (23, 19, 5, 12, 28, 200, 13, 8, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (24, 19, 5, 14, 6, 200, 15, 8, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (25, 19, 5, 17, 8, 200, 14, 7, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (26, 19, 5, 9, 7, 200, 14, 9, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (27, 10, 5, 8, 33, 5, 9, 34, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (28, 11, 5, 8, 28, 5, 10, 34, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (29, 20, 5, 15, 36, 250, 20, 35, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (30, 21, 5, 12, 36, 0, 21, 35, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (31, 18, 5, 7, 32, 40, 8, 31, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (32, 18, 5, 34, 19, 40, 32, 28, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (33, 14, 5, 21, 36, 110, 31, 28, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (34, 14, 5, 30, 27, 110, 33, 28, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (35, 13, 5, 20, 18, 100, 22, 22, 0x323030362d30352d32302032323a30343a3139, 1);
+INSERT INTO `webrpg_monsters` VALUES (36, 10, 2, 76, 27, 5, 79, 29, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (37, 11, 2, 91, 23, 5, 78, 28, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (38, 12, 2, 79, 33, 30, 80, 29, 0x323030362d30352d32302032323a30393a3032, 1);
+INSERT INTO `webrpg_monsters` VALUES (39, 13, 2, 70, 27, 100, 66, 30, 0x323030362d30352d32302032323a30393a3032, 1);
+INSERT INTO `webrpg_monsters` VALUES (40, 13, 2, 76, 28, 100, 92, 23, 0x323030362d30352d32302032323a31303a3534, 1);
+INSERT INTO `webrpg_monsters` VALUES (41, 13, 2, 85, 27, 100, 93, 23, 0x323030362d30352d32302032323a31303a3534, 1);
+INSERT INTO `webrpg_monsters` VALUES (42, 13, 2, 94, 22, 100, 94, 23, 0x323030362d30352d32302032323a31303a3534, 1);
+INSERT INTO `webrpg_monsters` VALUES (43, 11, 2, 56, 28, 5, 58, 30, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (44, 11, 2, 58, 30, 5, 57, 30, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (45, 7, 2, 60, 21, 25, 60, 24, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (46, 8, 2, 61, 21, 50, 61, 24, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (47, 7, 2, 60, 23, 25, 59, 24, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (48, 7, 2, 62, 13, 25, 63, 17, 0x323030362d30352d32302032323a31333a3035, 1);
+INSERT INTO `webrpg_monsters` VALUES (49, 8, 2, 67, 18, 50, 62, 17, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (50, 6, 4, 23, 22, 35, 23, 26, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (51, 6, 4, 19, 20, 35, 24, 26, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (52, 6, 4, 28, 18, 35, 25, 26, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (53, 6, 4, 26, 26, 35, 23, 27, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (54, 6, 4, 26, 23, 35, 24, 27, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (55, 6, 4, 23, 16, 35, 25, 27, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (56, 6, 4, 35, 22, 35, 23, 12, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (57, 6, 4, 23, 27, 35, 24, 12, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (58, 6, 0, 0, 0, 0, 25, 12, 0x323030362d30352d32302032323a31373a3032, 0);
+INSERT INTO `webrpg_monsters` VALUES (59, 6, 4, 26, 21, 35, 23, 13, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (60, 6, 4, 23, 13, 35, 24, 13, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (61, 6, 4, 24, 22, 35, 25, 13, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (62, 8, 4, 36, 34, 50, 33, 27, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (63, 8, 4, 34, 32, 50, 33, 28, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (64, 8, 4, 27, 18, 50, 33, 29, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (65, 8, 4, 33, 27, 50, 33, 30, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (66, 8, 4, 34, 28, 50, 33, 31, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (67, 8, 4, 33, 20, 50, 33, 32, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (68, 8, 4, 30, 36, 50, 33, 33, 0x303030302d30302d30302030303a30303a3030, 1);
+INSERT INTO `webrpg_monsters` VALUES (69, 8, 4, 33, 33, 50, 33, 34, 0x303030302d30302d30302030303a30303a3030, 1);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_monstertypes`
+-- 
+
+CREATE TABLE `webrpg_monstertypes` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(64) collate latin1_general_ci NOT NULL default '',
+  `hp` int(11) NOT NULL default '0',
+  `ap` int(11) NOT NULL default '0',
+  `rc` int(11) NOT NULL default '0',
+  `expgive` int(11) NOT NULL default '0',
+  `dropvalue` int(11) NOT NULL default '0',
+  `dropvaluegold` int(11) NOT NULL default '0',
+  `img` varchar(64) collate latin1_general_ci NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=77 ;
+
+-- 
+-- Dumping data for table `webrpg_monstertypes`
+-- 
+
+INSERT INTO `webrpg_monstertypes` VALUES (1, 'poison ant', 10, 3, 1, 10, 200, 1, '0001.gif');
+INSERT INTO `webrpg_monstertypes` VALUES (2, 'smally', 5, 1, 0, 5, 40, 0, '0002.gif');
+INSERT INTO `webrpg_monstertypes` VALUES (3, 'bee', 20, 5, 0, 20, 280, 3, '0003.gif');
+INSERT INTO `webrpg_monstertypes` VALUES (4, 'smally chief', 7, 2, 0, 7, 80, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (5, 'poison spider', 40, 10, 2, 50, 400, 10, '');
+INSERT INTO `webrpg_monstertypes` VALUES (6, 'fire ant', 35, 8, 1, 40, 400, 8, '');
+INSERT INTO `webrpg_monstertypes` VALUES (7, 'drunk ant', 25, 12, 0, 45, 440, 5, '');
+INSERT INTO `webrpg_monstertypes` VALUES (8, 'beatle', 50, 4, 4, 50, 600, 3, '');
+INSERT INTO `webrpg_monstertypes` VALUES (9, 'smallyo', 6, 1, 0, 6, 60, 1, '');
+INSERT INTO `webrpg_monstertypes` VALUES (10, 'fly', 5, 1, 0, 5, 40, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (11, 'ugly fly', 5, 1, 0, 5, 40, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (12, 'bee chief', 30, 7, 0, 30, 400, 1, '');
+INSERT INTO `webrpg_monstertypes` VALUES (13, 'wasp', 100, 10, 1, 70, 800, 5, '');
+INSERT INTO `webrpg_monstertypes` VALUES (14, 'drunken wasp', 110, 15, 1, 80, 1000, 7, '');
+INSERT INTO `webrpg_monstertypes` VALUES (15, 'some monster', 50, 1, 1, 40, 600, 4, '');
+INSERT INTO `webrpg_monstertypes` VALUES (16, 'large wasp', 150, 15, 3, 100, 1200, 15, '');
+INSERT INTO `webrpg_monstertypes` VALUES (17, 'ill bug', 50, 5, 1, 40, 600, 4, '');
+INSERT INTO `webrpg_monstertypes` VALUES (18, 'ugly bug', 40, 7, 1, 40, 600, 4, '');
+INSERT INTO `webrpg_monstertypes` VALUES (19, 'poison bug', 200, 10, 10, 150, 1600, 50, '');
+INSERT INTO `webrpg_monstertypes` VALUES (20, 'poison bug chief', 250, 20, 15, 300, 2400, 100, '');
+INSERT INTO `webrpg_monstertypes` VALUES (21, 'blob', 25, 1, 1, 10, 280, 4, '');
+INSERT INTO `webrpg_monstertypes` VALUES (22, 'blue blob', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (23, 'cube blob', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (24, 'eye blob', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (25, 'yellow blob', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (26, 'double eye blob', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (27, 'drunken blob', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (28, 'chicken', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (29, 'chicken', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (30, 'chicken mutant', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (31, 'chicken mutant chief', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (32, 'fire chicken mutant', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (33, 'parot', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (34, 'evil dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (35, 'firefox©', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (36, 'fire hound', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (37, 'zombie wolf', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (38, 'puppy', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (39, 'dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (40, 'doberman', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (41, 'pink eye dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (42, 'fire puppy', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (43, 'fox dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (44, 'fire dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (45, 'grey hound', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (46, 'ugly fire dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (47, 'grey dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (48, 'werewolf', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (49, 'grey wolf', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (50, 'zombie puppy', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (51, 'white wolf', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (52, 'blood puppy', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (53, 'some monster', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (54, 'black dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (55, 'poison dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (56, 'blood wolf', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (57, 'ughla', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (58, 'ball', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (59, 'eye', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (60, 'power eye', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (61, 'blue ball', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (62, 'fire', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (63, 'energy', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (64, 'blood eye', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (65, 'staring eye', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (66, 'kitty', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (67, 'cat', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (68, 'tiger', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (69, 'tiger dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (70, 'blue stripes black cat', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (71, 'black cat', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (72, 'white cat', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (73, 'orange fox', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (74, 'alien hound', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (75, 'blue dog', 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `webrpg_monstertypes` VALUES (76, 'tiger', 0, 0, 0, 0, 0, 0, '');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_one`
+-- 
+
+CREATE TABLE `webrpg_one` (
+  `time` int(11) NOT NULL default '0',
+  `bgtaskbusy` int(11) NOT NULL default '0',
+  `timelastiterate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- 
+-- Dumping data for table `webrpg_one`
+-- 
+
+INSERT INTO `webrpg_one` VALUES (1, 0, 0x323030362d30352d32382031373a31363a3032);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_portals`
+-- 
+
+CREATE TABLE `webrpg_portals` (
+  `id` int(11) NOT NULL auto_increment,
+  `regionid` int(11) NOT NULL default '0',
+  `x` int(11) NOT NULL default '0',
+  `y` int(11) NOT NULL default '0',
+  `targetregionid` int(11) NOT NULL default '0',
+  `targetx` int(11) NOT NULL default '0',
+  `targety` int(11) NOT NULL default '0',
+  `text` varchar(128) collate latin1_general_ci NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `regionid` (`regionid`),
+  KEY `x` (`x`),
+  KEY `y` (`y`),
+  KEY `targetregionid` (`targetregionid`),
+  KEY `targetx` (`targetx`),
+  KEY `targety` (`targety`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=9 ;
+
+-- 
+-- Dumping data for table `webrpg_portals`
+-- 
+
+INSERT INTO `webrpg_portals` VALUES (1, 1, 5, 5, 2, 81, 34, 'You see a light at the end of the hallway. Do you want to walk along?');
+INSERT INTO `webrpg_portals` VALUES (2, 2, 81, 34, 1, 5, 5, 'You remember the stairs down to that dungeon - down there, where everything started. Do you wish to enter?');
+INSERT INTO `webrpg_portals` VALUES (3, 2, 52, 29, 3, 20, 11, 'This is the great city of Avagahn. Do you wish to enter?');
+INSERT INTO `webrpg_portals` VALUES (4, 3, 20, 11, 2, 52, 29, 'Do you wish to exit the great city of Avagahn?');
+INSERT INTO `webrpg_portals` VALUES (5, 2, 98, 22, 4, 20, 20, 'Do you really wish to enter the Deadly Dungeon of Death?');
+INSERT INTO `webrpg_portals` VALUES (6, 4, 33, 35, 2, 98, 22, 'Do you wish to exit the Deadly Dungeon of Death?');
+INSERT INTO `webrpg_portals` VALUES (7, 2, 63, 12, 5, 6, 38, 'Do you wish to leave the forest?');
+INSERT INTO `webrpg_portals` VALUES (8, 5, 6, 38, 2, 63, 12, 'Do you wish to leave the desert?');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_regions`
+-- 
+
+CREATE TABLE `webrpg_regions` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(64) collate latin1_general_ci NOT NULL default '',
+  `x` int(11) NOT NULL default '0',
+  `y` int(11) NOT NULL default '0',
+  `filename` varchar(64) collate latin1_general_ci NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
+
+-- 
+-- Dumping data for table `webrpg_regions`
+-- 
+
+INSERT INTO `webrpg_regions` VALUES (1, 'Dungeon', 51, 27, 'dungeon');
+INSERT INTO `webrpg_regions` VALUES (2, 'Woodland', 102, 38, 'woodland');
+INSERT INTO `webrpg_regions` VALUES (3, 'City of Avagahn', 22, 22, 'cityavagahn');
+INSERT INTO `webrpg_regions` VALUES (4, 'Deadly Dungeon of Death', 41, 40, 'deadlydungeon');
+INSERT INTO `webrpg_regions` VALUES (5, 'Desert', 40, 40, 'desert');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_texts`
+-- 
+
+CREATE TABLE `webrpg_texts` (
+  `id` int(11) NOT NULL auto_increment,
+  `regionid` int(11) NOT NULL default '0',
+  `x` int(11) NOT NULL default '0',
+  `y` int(11) NOT NULL default '0',
+  `text` varchar(128) collate latin1_general_ci NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  KEY `regionid` (`regionid`),
+  KEY `x` (`x`),
+  KEY `y` (`y`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=11 ;
+
+-- 
+-- Dumping data for table `webrpg_texts`
+-- 
+
+INSERT INTO `webrpg_texts` VALUES (1, 1, 22, 20, 'A sign reads: Welcome to the noob dungeon. Find your way outside.');
+INSERT INTO `webrpg_texts` VALUES (2, 3, 17, 9, 'The sign reads: These are the soul fountains. If you die their power will resurrect you.');
+INSERT INTO `webrpg_texts` VALUES (3, 3, 7, 5, 'The sign reads: Weapon shop');
+INSERT INTO `webrpg_texts` VALUES (4, 3, 5, 13, 'The sign reads: Armory');
+INSERT INTO `webrpg_texts` VALUES (5, 3, 9, 17, 'The sign reads: Martha''s Potions');
+INSERT INTO `webrpg_texts` VALUES (6, 3, 13, 12, 'The sign reads: This artistic fountain was built here to worship intripoon. Hail intripoon!');
+INSERT INTO `webrpg_texts` VALUES (7, 2, 79, 33, 'The sign reads: Congratulations! You completed the noob dungeon. Now follow your path!');
+INSERT INTO `webrpg_texts` VALUES (8, 2, 77, 31, 'The sign reads: West: Great city of Avagahn - East: Deadly Dungeon of Dead');
+INSERT INTO `webrpg_texts` VALUES (9, 4, 20, 20, 'When you reach the end of the stairs, the stairway collapses behind you. From now on, there is only one way ?');
+INSERT INTO `webrpg_texts` VALUES (10, 5, 8, 37, 'You suddenly notice this location: This is where your parents were killed by a poison bug when you were a child. Payback time!');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `webrpg_users`
+-- 
+
+CREATE TABLE `webrpg_users` (
+  `id` int(11) NOT NULL auto_increment,
+  `login` varchar(64) collate latin1_general_ci NOT NULL default '',
+  `password` varchar(64) collate latin1_general_ci NOT NULL default '',
+  `email` varchar(128) collate latin1_general_ci NOT NULL default '',
+  `homepage` varchar(128) collate latin1_general_ci NOT NULL default '',
+  `timeregistered` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `timelastlogin` timestamp NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`),
+  KEY `login` (`login`),
+  KEY `password` (`password`),
+  KEY `timeregistered` (`timeregistered`),
+  KEY `timelastlogin` (`timelastlogin`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=5 ;
+
+-- 
+-- Dumping data for table `webrpg_users`
+-- 
+
+        
