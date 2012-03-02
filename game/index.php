@@ -8,12 +8,6 @@
 	<table>
 		<tr>
 			<td valign=top>
-				<img src="pageimgs/big26.jpg">
-			</td>
-			<td width=30>
-				&nbsp;
-			</td>
-			<td valign=top>
 				<h1>WebRPG</h1>
 				WebRPG is a <b>Browsergame</b>. You don't have to download or install anything to play it. It also doesn't use java or flash, 
 				<b>just html and javascript</b>.<br />
